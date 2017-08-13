@@ -6,7 +6,7 @@
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/29 13:45:10 by olkovale          #+#    #+#             */
-/*   Updated: 2017/07/02 00:12:31 by olkovale         ###   ########.fr       */
+/*   Updated: 2017/08/13 16:04:53 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_list	*ft_lstfpop(t_list **alst)
 {
 	t_list	*pop;
-	
+
 	if (!alst)
 		return (NULL);
 	pop = *alst;

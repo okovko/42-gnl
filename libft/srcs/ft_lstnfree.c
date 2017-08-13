@@ -6,7 +6,7 @@
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/12 23:10:23 by olkovale          #+#    #+#             */
-/*   Updated: 2017/07/25 23:00:39 by olkovale         ###   ########.fr       */
+/*   Updated: 2017/08/13 16:05:49 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "libft.h"
 
-t_list *ft_lstnfree(t_list **alst, size_t n)
+t_list	*ft_lstnfree(t_list **alst, size_t n)
 {
 	t_list	*tmp;
 

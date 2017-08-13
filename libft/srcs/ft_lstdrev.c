@@ -6,7 +6,7 @@
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/13 21:40:59 by olkovale          #+#    #+#             */
-/*   Updated: 2017/07/14 11:33:19 by olkovale         ###   ########.fr       */
+/*   Updated: 2017/08/13 16:06:27 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ t_list	*ft_lstdrev(t_list *lst)
 	dcpy = NULL;
 	while (lst)
 	{
-		NULLIF((node = ft_lstnew((void *)lst->content, lst->content_size)) == NULL);
+		node = ft_lstnew((void *)lst->content, lst->content_size);
+		NULLIF(NULL == node);
 		ft_lstadd(&dcpy, node);
 		lst = lst->next;
 	}
