@@ -6,7 +6,7 @@
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/07 11:29:19 by olkovale          #+#    #+#             */
-/*   Updated: 2017/08/13 16:02:32 by olkovale         ###   ########.fr       */
+/*   Updated: 2017/08/13 16:03:52 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,45 +17,46 @@
 
 # include "macrosft.h"
 
-typedef struct			s_list
+typedef struct		s_list
 {
-	void				*content;
-	size_t				content_size;
-	struct s_list		*next;
-}						t_list;
+	void			*content;
+	size_t			content_size;
+	struct s_list	*next;
+}					t_list;
 
-typedef struct			s_point
+typedef struct		s_point
 {
-	int					x;
-	int					y;
-}						t_point;
+	int				x;
+	int				y;
+}					t_point;
 
-typedef struct			s_rect
+typedef struct		s_rect
 {
-	size_t				x0;
-	size_t				x1;
-	size_t				y0;
-	size_t				y1;
-}						t_rect;
+	size_t			x0;
+	size_t			x1;
+	size_t			y0;
+	size_t			y1;
+}					t_rect;
 
-typedef struct			s_text
+typedef struct		s_text
 {
-	char				*start;
-	char				*end;
-	char				delim;
-}						t_text;
+	char			*start;
+	char			*end;
+	char			delim;
+}					t_text;
 
-typedef struct			s_drange
+typedef struct		s_drange
 {
-	int					*start;
-	int					*end;
-}						t_drange;
+	int				*start;
+	int				*end;
+}					t_drange;
 
 void				*ft_memset(void *s, int c, size_t n);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dest, const void *src, size_t n);
 void				*ft_memccpy(void *dest, const void *src, int c, size_t n);
-void				*ft_memjoin(void const *m1, void const *m2, size_t s1, size_t s2);
+void				*ft_memjoin(void const *m1, void const *m2,
+								size_t s1, size_t s2);
 void				*ft_memmove(void *dest, const void *src, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 void				*ft_memcchr(const void *s, int c, size_t n);
