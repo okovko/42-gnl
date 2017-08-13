@@ -6,7 +6,7 @@
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/17 00:03:20 by olkovale          #+#    #+#             */
-/*   Updated: 2017/07/21 12:49:33 by olkovale         ###   ########.fr       */
+/*   Updated: 2017/08/13 16:11:18 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_bool	ft_dpermute(int *start, int *end)
 			return (true);
 		}
 		IF((i == start),
-			ft_cpyrev(start, end, sizeof(int));
-			return (false));
+			ft_cpyrev(start, end, sizeof(int)),
+			RET(false));
 	}
 }
