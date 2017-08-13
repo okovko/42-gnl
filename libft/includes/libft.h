@@ -6,7 +6,7 @@
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/07 11:29:19 by olkovale          #+#    #+#             */
-/*   Updated: 2017/08/13 13:43:51 by olkovale         ###   ########.fr       */
+/*   Updated: 2017/08/13 16:02:32 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,6 @@ t_list				*ft_lstsrev(t_list **begin_list);
 t_list				*ft_lstdrev(t_list *lst);
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_bool				ft_lstevery(t_list *lst, int (*f)(t_list *elem));
-//t_list				*ft_lstpermute_lex(t_list *lst, int len, int sz);
 size_t				ft_count_digits(long value);
 char const			*ft_next_word(char const *str, char delim);
 char				*ft_word_copy(char *dest, char const *src, char delim);
