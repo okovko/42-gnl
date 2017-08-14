@@ -50,11 +50,11 @@ int				get_next_line(const int fd, char **line)
 	int				scan_info;
 	ssize_t			ret;
 
-	if (BUFF_SIZE < 1 || fd < 0 || NULL == line)
+	if (BUFF_SIZE < 1 || NULL == line || fd < 0 || read(fd, buf[fd], 0) < 0)
 		return (-1);
 	*line = NULL;
 	scan = NULL;
-	while (1)
+	while (true)
 	{
 		scan_info = get_next_scan(&scan, buf[fd]);
 		if (scan_info == -1)
@@ -68,5 +68,5 @@ int				get_next_line(const int fd, char **line)
 			break ;
 	}
 	free(scan);
-	return (1 == scan_info ? 1 : ret);
+	return (ret != -1 && NULL != *line ? 1 : ret);
 }
