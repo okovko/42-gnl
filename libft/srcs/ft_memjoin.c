@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchrnul.c                                     :+:      :+:    :+:   */
+/*   ft_memjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/05 09:45:09 by olkovale          #+#    #+#             */
-/*   Updated: 2017/08/14 03:24:47 by olkovale         ###   ########.fr       */
+/*   Created: 2017/08/13 13:29:50 by olkovale          #+#    #+#             */
+/*   Updated: 2017/08/13 13:29:50 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strchrnul(const char *str, char q)
-{
-	char	c;
+#include <string.h>
+#include <stdlib.h>
 
-	while ((c = *str))
-	{
-		if (c == q)
-			return ((char *)str);
-		str++;
-	}
-	return ((char *)str);
+#include "libft.h"
+
+void	*ft_memjoin(void const *m1, void const *m2, size_t s1, size_t s2)
+{
+	void	*cat;
+
+	NULLCHECK(m1, m2);
+	CHKALLOC(cat = malloc(s1 + s2));
+	ft_memcpy(cat, m1, s1);
+	ft_memcpy(cat + s1, m2, s2);
+	return (cat);
 }

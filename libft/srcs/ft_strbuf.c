@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchrnul.c                                     :+:      :+:    :+:   */
+/*   ft_strbuf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/05 09:45:09 by olkovale          #+#    #+#             */
-/*   Updated: 2017/08/14 03:24:47 by olkovale         ###   ########.fr       */
+/*   Created: 2017/08/13 13:40:41 by olkovale          #+#    #+#             */
+/*   Updated: 2017/08/13 13:40:41 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strchrnul(const char *str, char q)
-{
-	char	c;
+#include <stdlib.h>
 
-	while ((c = *str))
-	{
-		if (c == q)
-			return ((char *)str);
-		str++;
-	}
-	return ((char *)str);
+#include "libft.h"
+
+char	*ft_strbuf(const char *buf, size_t sz)
+{
+	char	*str;
+
+	NULLCHECK(buf);
+	CHKALLOC(str = ft_strnew(sz));
+	return (ft_strncpy(str, buf, sz));
 }
