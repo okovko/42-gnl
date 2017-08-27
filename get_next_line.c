@@ -6,12 +6,13 @@
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 12:17:19 by olkovale          #+#    #+#             */
-/*   Updated: 2017/08/14 02:16:33 by olkovale         ###   ########.fr       */
+/*   Updated: 2017/08/27 01:05:01 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "libft/includes/libft.h"
 #include "get_next_line.h"
@@ -22,7 +23,6 @@ static int		get_next_scan(char **scan, char *buf)
 	char	*start;
 	char	*end;
 
-	free(*scan);
 	*scan = NULL;
 	if (NULL == (start = ft_memcchr(buf, '\0', BUFF_SIZE)))
 		return (-1);
@@ -33,40 +33,66 @@ static int		get_next_scan(char **scan, char *buf)
 	return (NULL != end);
 }
 
-static char		*append_to_line(char **line, char *scan)
+static char		*get_line(t_list *lst, char **line)
 {
-	char	*tmp;
+	t_list	*head;
+	int		sz;
 
-	tmp = *line;
-	*line = NULL == tmp ? ft_strdup(scan) : ft_strjoin(tmp, scan);
-	free(tmp);
+	if (NULL == lst)
+		return (NULL);
+	sz = 1;
+	head = lst;
+	while (NULL != lst)
+	{
+		if (NULL != lst->content)
+			sz += ft_strlen((char *)lst->content);
+		lst = lst->next;
+	}
+	*line = malloc(sz);
+	(*line)[sz - 1] = '\0';
+	while (NULL != head)
+	{
+		*line = ft_strcat(*line, (char *)head->content);
+		head = head->next;
+	}
 	return (*line);
+}
+
+static int		init_and_err(const int fd, char **line, char **scan)
+{
+	char	buf[1];
+
+	if (BUFF_SIZE < 1 || NULL == line || fd < 0 || read(fd, buf, 0) < 0)
+		return (-1);
+	*line = NULL;
+	*scan = NULL;
+	return (0);
 }
 
 int				get_next_line(const int fd, char **line)
 {
-	static char		buf[FD_MAX][BUFF_SIZE];
+	static t_fdlst	fdlst[FD_MAX];
+	char			*buf;
 	char			*scan;
 	int				scan_info;
 	ssize_t			ret;
 
-	if (BUFF_SIZE < 1 || NULL == line || fd < 0 || read(fd, buf[fd], 0) < 0)
+	if (0 != init_and_err(fd, line, &scan))
 		return (-1);
-	*line = NULL;
-	scan = NULL;
+	buf = fdlst[fd].buf;
 	while (true)
 	{
-		scan_info = get_next_scan(&scan, buf[fd]);
-		if (scan_info == -1)
+		if (-1 == (scan_info = get_next_scan(&scan, buf)))
 		{
-			if ((ret = read(fd, buf[fd], BUFF_SIZE)) <= 0)
+			if ((ret = read(fd, buf, BUFF_SIZE)) <= 0)
 				break ;
 			continue ;
 		}
-		append_to_line(line, scan);
-		if (scan_info == 1)
+		ft_lstadd(&fdlst[fd].lst, ft_lstnode((void *)scan, sizeof(char *)));
+		if (1 == scan_info)
 			break ;
 	}
-	free(scan);
+	*line = get_line(ft_lstsrev(&fdlst[fd].lst), line);
+	ft_lstnfree(&fdlst[fd].lst, 1);
 	return (ret != -1 && NULL != *line ? 1 : ret);
 }
