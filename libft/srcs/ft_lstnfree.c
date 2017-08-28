@@ -6,7 +6,7 @@
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/12 23:10:23 by olkovale          #+#    #+#             */
-/*   Updated: 2017/08/26 01:06:03 by olkovale         ###   ########.fr       */
+/*   Updated: 2017/08/28 04:15:36 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ t_list	*ft_lstnfree(t_list **alst, size_t n)
 {
 	t_list	*tmp;
 
-	NULLCHECK(alst);
+	if (NULL == alst)
+		return (NULL);
 	while (*alst)
 	{
 		if (n > 1)

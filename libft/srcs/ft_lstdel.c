@@ -6,7 +6,7 @@
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/18 08:15:08 by olkovale          #+#    #+#             */
-/*   Updated: 2017/07/13 16:19:31 by olkovale         ###   ########.fr       */
+/*   Updated: 2017/06/23 16:27:26 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,4 @@ void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 		free(*alst);
 		*alst = link;
 	}
-	*alst = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/18 08:15:12 by olkovale          #+#    #+#             */
-/*   Updated: 2017/07/22 03:54:35 by olkovale         ###   ########.fr       */
+/*   Updated: 2017/06/23 16:34:39 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 	t_list	*head;
 	t_list	*map;
 
-	NULLCHECK(lst, f);
+	if (!lst || !f)
+		return (NULL);
 	map = f(lst);
 	head = map;
 	lst = lst->next;

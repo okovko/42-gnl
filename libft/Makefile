@@ -6,7 +6,7 @@
 #    By: olkovale <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/20 19:35:21 by olkovale          #+#    #+#              #
-#    Updated: 2017/07/11 18:46:45 by olkovale         ###   ########.fr        #
+#    Updated: 2017/08/28 04:35:51 by olkovale         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,12 @@ NAME = libft.a
 
 SRCS = $(wildcard srcs/*.c)
 BINS = $(patsubst srcs/%.c, %.o, $(SRCS))
-FLAGS = -g -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 
 .PHONY: re all clean fclean
 
 %.o : 
-	gcc -Iincludes $(FLAGS) -c $(SRCS)
+	gcc -Iincs $(FLAGS) -c $(SRCS)
 
 all: $(NAME)
 

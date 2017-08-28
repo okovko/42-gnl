@@ -6,13 +6,13 @@
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/18 20:21:57 by olkovale          #+#    #+#             */
-/*   Updated: 2017/07/14 07:16:11 by olkovale         ###   ########.fr       */
+/*   Updated: 2017/06/18 20:21:57 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrev(char *str)
+void	ft_strrev(char *str)
 {
 	int		i;
 	int		j;
@@ -29,5 +29,4 @@ char	*ft_strrev(char *str)
 		i++;
 		j--;
 	}
-	return (str);
 }
