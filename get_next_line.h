@@ -12,7 +12,7 @@
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 4
+# define BUFF_SIZE 256
 # define FD_MAX 5000
 
 # include "libft/incs/libft.h"
