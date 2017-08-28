@@ -6,7 +6,7 @@
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 12:17:19 by olkovale          #+#    #+#             */
-/*   Updated: 2017/08/28 04:36:39 by olkovale         ###   ########.fr       */
+/*   Updated: 2017/08/28 04:46:42 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <stdio.h>
 
 #include "get_next_line.h"
+#include "libft/incs/libft.h"
 
 static int		get_next_scan(char **scan, char *buf)
 {
