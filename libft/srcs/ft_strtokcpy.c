@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_word_copy.c                                     :+:      :+:    :+:   */
+/*   ft_strtokcpy.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/18 20:24:56 by olkovale          #+#    #+#             */
-/*   Updated: 2017/06/23 09:06:18 by olkovale         ###   ########.fr       */
+/*   Updated: 2017/09/06 14:30:22 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 #include "libft.h"
 
-char		*ft_word_copy(char *dest, char const *src, char delim)
+char		*ft_strtokcpy(char *dst, const char *src, const char *dlm)
 {
-	char	*head;
-	char	c;
+	char	*beg;
+	char	cc;
 
-	head = NULL;
-	while ((c = *src++) && c != delim)
-		*dest++ = c;
-	*dest = '\0';
-	return (head);
+	beg = dst;
+	while ((cc = *src++) && NULL == ft_strchr(dlm, cc))
+		*dst++ = cc;
+	*dst = '\0';
+	return (beg);
 }

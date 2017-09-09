@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_memcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/07 12:06:06 by olkovale          #+#    #+#             */
-/*   Updated: 2017/06/23 16:24:39 by olkovale         ###   ########.fr       */
+/*   Created: 2017/08/31 05:11:24 by olkovale          #+#    #+#             */
+/*   Updated: 2017/09/06 15:52:21 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+void	*ft_memcat(void *dst, const void *src, int dst_sz, int src_sz)
 {
-	unsigned char	*bytes;
+	void	*beg;
 
-	bytes = (unsigned char *)s;
-	while (n--)
-		*bytes++ = 0;
+	beg = dst;
+	dst += dst_sz;
+	while (src_sz--)
+		*(unsigned char *)dst++ = *(unsigned char *)src++;
+	return (beg);
 }

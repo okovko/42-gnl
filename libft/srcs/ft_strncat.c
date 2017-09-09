@@ -6,7 +6,7 @@
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 06:37:18 by olkovale          #+#    #+#             */
-/*   Updated: 2017/06/21 13:24:25 by olkovale         ###   ########.fr       */
+/*   Updated: 2017/09/06 15:13:10 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 #include "libft.h"
 
-char	*ft_strncat(char *dest, const char *src, size_t n)
+char	*ft_strncat(char *dst, const char *src, int sz)
 {
-	char	*head;
+	char	*beg;
 
-	head = dest;
-	while (*dest++)
-		;
-	dest--;
-	while (*src && n--)
-		*dest++ = *src++;
-	*dest = '\0';
-	return (head);
+	beg = dst;
+	while (*dst)
+		dst++;
+	while (*src && sz--)
+		*dst++ = *src++;
+	*dst = '\0';
+	return (beg);
 }

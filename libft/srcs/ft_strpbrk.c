@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_count_words.c                                   :+:      :+:    :+:   */
+/*   ft_strpbrk.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/18 20:24:12 by olkovale          #+#    #+#             */
-/*   Updated: 2017/06/18 20:24:12 by olkovale         ###   ########.fr       */
+/*   Created: 2017/09/06 13:07:00 by olkovale          #+#    #+#             */
+/*   Updated: 2017/09/06 13:07:00 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-unsigned	ft_count_words(char const *str, char delim)
+char	*ft_strpbrk(const char *ss, const char *dlm)
 {
-	unsigned	i;
+	const char	*beg;
 
-	i = 0;
-	while (*str)
-	{
-		str = ft_next_word(str, delim);
-		i++;
-	}
-	return (i);
+	if (NULL == ss || NULL == dlm)
+		return (0);
+	beg = ss;
+	while (*ss && NULL == ft_strchr(dlm, *ss))
+		ss++;
+	return ((char *)ss);
 }

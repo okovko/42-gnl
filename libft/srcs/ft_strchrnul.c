@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_count_digits.c                                  :+:      :+:    :+:   */
+/*   ft_strchrnul.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/18 20:17:46 by olkovale          #+#    #+#             */
-/*   Updated: 2017/06/19 21:50:01 by olkovale         ###   ########.fr       */
+/*   Created: 2017/09/06 16:06:47 by olkovale          #+#    #+#             */
+/*   Updated: 2017/09/06 16:06:47 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-
 #include "libft.h"
 
-size_t		ft_count_digits(int value)
+char	*ft_strchrnul(const char *ss, char qry)
 {
-	size_t	count;
+	char	cc;
 
-	count = value == 0;
-	while (value)
+	while ((cc = *ss))
 	{
-		count++;
-		value /= 10;
+		if (cc == qry)
+			return ((char *)ss);
+		ss++;
 	}
-	return (count);
+	return ((char *)ss);
 }

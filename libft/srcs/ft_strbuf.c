@@ -6,7 +6,7 @@
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 13:40:41 by olkovale          #+#    #+#             */
-/*   Updated: 2017/08/28 04:15:11 by olkovale         ###   ########.fr       */
+/*   Updated: 2017/09/06 15:31:26 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 #include "libft.h"
 
-char	*ft_strbuf(const char *buf, size_t sz)
+char	*ft_strbuf(const char *buf, int sz)
 {
-	char	*str;
+	char	*ss;
 
 	if (NULL == buf)
 		return (NULL);
-	if (NULL == (str = ft_strnew(sz)))
+	if (NULL == (ss = malloc(sz + 1)))
 		return (NULL);
-	return (ft_strncpy(str, buf, sz));
+	return (ft_strncpy(ss, buf, sz));
 }

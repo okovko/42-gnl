@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_word_length.c                                   :+:      :+:    :+:   */
+/*   ft_diglen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/18 20:24:36 by olkovale          #+#    #+#             */
-/*   Updated: 2017/06/18 20:24:36 by olkovale         ###   ########.fr       */
+/*   Created: 2017/06/18 20:17:46 by olkovale          #+#    #+#             */
+/*   Updated: 2017/09/06 12:53:57 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
+
 #include "libft.h"
 
-unsigned	ft_word_length(char const *str, char delim)
+int		ft_diglen(int val)
 {
-	unsigned	i;
+	int		sz;
 
-	i = 0;
-	while (str[i] && str[i] != delim)
-		i++;
-	return (i);
+	sz = val <= 0;
+	while (val)
+	{
+		sz++;
+		val /= 10;
+	}
+	return (sz);
 }

@@ -5,11 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/13 12:17:19 by olkovale          #+#    #+#             */
-/*   Updated: 2017/08/28 04:46:42 by olkovale         ###   ########.fr       */
+/*   Created: 2017/09/06 05:28:50 by olkovale          #+#    #+#             */
+/*   Updated: 2017/09/08 16:15:04 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stddef.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -17,82 +18,90 @@
 #include "get_next_line.h"
 #include "libft/incs/libft.h"
 
-static int		get_next_scan(char **scan, char *buf)
+static int		process_buf(t_fdinfo *info)
 {
-	size_t	len;
-	char	*start;
-	char	*end;
+	int		ret;
+	char	*dat;
 
-	*scan = NULL;
-	if (NULL == (start = ft_memcchr(buf, '\0', BUFF_SIZE)))
-		return (-1);
-	end = ft_memchr(buf, '\n', BUFF_SIZE);
-	len = NULL == end ? BUFF_SIZE - (start - buf) : end - start;
-	*scan = ft_strbuf(start, len);
-	ft_memset(start, '\0', len + 1);
-	return (NULL != end);
+	dat = NULL;
+	ret = get_next_buf(info->fd, BUFF_SIZE, &dat);
+	info->buf.dat = dat;
+	info->buf.sz = BUFF_SIZE;
+	info->buf.pos = 0;
+	info->buf.uz = ret;
+	return (ret);
 }
 
-static char		*get_line(t_list *lst, char **line)
+static int		process_lst(t_fdinfo *info)
 {
-	t_list	*head;
-	int		sz;
+	char	*ss;
+	t_lst	*nod;
 
-	if (NULL == lst)
-		return (NULL);
-	sz = 1;
-	head = lst;
-	while (NULL != lst)
+	while (true)
 	{
-		if (NULL != lst->content)
-			sz += ft_strlen((char *)lst->content);
-		lst = lst->next;
+		if (info->buf.pos >= info->buf.uz)
+			process_buf(info);
+		if (0 > info->buf.uz)
+			return (-1);
+		if (0 == info->buf.uz)
+			return (0);
+		info->scan = get_next_scan(info->buf.dat + info->buf.pos, "\n", &ss);
+		if (NULL == (nod = ft_lstnode((void *)ss, info->scan)))
+			return (-1);
+		ft_lstadd(&info->ll, nod);
+		info->buf.pos += info->scan + 1;
+		if (0 > info->scan)
+			return (-1);
+		if (0 <= info->scan)
+			return (1);
 	}
-	*line = malloc(sz);
-	(*line)[sz - 1] = '\0';
-	while (NULL != head)
-	{
-		*line = ft_strcat(*line, (char *)head->content);
-		head = head->next;
-	}
-	return (*line);
 }
 
-static int		init_and_err(const int fd, char **line, char **scan)
+static int		process_info(t_lst **ll, int fd, t_fdinfo **info)
 {
-	char	buf[1];
+	t_lst		*nod;
+	char		*dat;
+	int			ret;
 
-	if (BUFF_SIZE < 1 || NULL == line || fd < 0 || read(fd, buf, 0) < 0)
+	if (NULL != (nod = ft_lstmemfind(*ll, (void *)(int[]){fd},
+						offsetof(t_fdinfo, fd), sizeof(fd))))
+	{
+		*info = nod->dat;
+		return (1);
+	}
+	dat = NULL;
+	if (0 >= (ret = get_next_buf(fd, BUFF_SIZE, &dat)))
+		return (ret);
+	*info = malloc(sizeof(**info));
+	nod = ft_lstnode((void *)*info, sizeof(**info));
+	if (NULL == *info || NULL == nod)
+	{
+		free(*info);
+		free(nod);
 		return (-1);
-	*line = NULL;
-	*scan = NULL;
+	}
+	(*info)->fd = fd;
+	(*info)->buf = (t_buf){.dat = dat, .sz = BUFF_SIZE, .uz = ret};
+	ft_lstadd(ll, nod);
 	return (0);
 }
 
 int				get_next_line(const int fd, char **line)
 {
-	static t_fdlst	fdlst[FD_MAX];
-	char			*buf;
-	char			*scan;
-	int				scan_info;
-	ssize_t			ret;
+	static t_lst	*ll = NULL;
+	t_fdinfo		*info;
+	int				ret;
 
-	if (0 != init_and_err(fd, line, &scan))
+	if (1 > BUFF_SIZE || !line || 0 > fd || 0 > read(fd, &(char[1]){0}, 0))
 		return (-1);
-	buf = fdlst[fd].buf;
-	while (true)
-	{
-		if (-1 == (scan_info = get_next_scan(&scan, buf)))
-		{
-			if ((ret = read(fd, buf, BUFF_SIZE)) <= 0)
-				break ;
-			continue ;
-		}
-		ft_lstadd(&fdlst[fd].lst, ft_lstnode((void *)scan, sizeof(char *)));
-		if (1 == scan_info)
-			break ;
-	}
-	*line = get_line(ft_lstsrev(&fdlst[fd].lst), line);
-	ft_lstnfree(&fdlst[fd].lst, 1);
-	return (ret != -1 && NULL != *line ? 1 : ret);
+	if (0 > (ret = process_info(&ll, fd, &info)))
+		return (ret);
+	ret = process_lst(info);
+	info->ll = ft_lstsrev(&info->ll);
+	*line = NULL;
+	*line = ft_lststr(info->ll);
+	ft_lstnfree(&info->ll, 1);
+	if (0 >= ret)
+		ft_lstdelcmp(&ll, info, ft_memcmp);
+	return (ret);
 }

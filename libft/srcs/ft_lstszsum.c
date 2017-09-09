@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_next_word.c                                     :+:      :+:    :+:   */
+/*   ft_lstszsum.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olkovale <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/18 20:23:28 by olkovale          #+#    #+#             */
-/*   Updated: 2017/06/18 20:23:28 by olkovale         ###   ########.fr       */
+/*   Created: 2017/09/01 21:09:05 by olkovale          #+#    #+#             */
+/*   Updated: 2017/09/06 15:52:58 by olkovale         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
+
 #include "libft.h"
 
-char const	*ft_next_word(char const *str, char delim)
+int		ft_lstszsum(t_lst *ll)
 {
-	char	c;
+	int		sum;
 
-	while ((c = *str) && c != delim)
-		str++;
-	while ((c = *str) && c == delim)
-		str++;
-	return (str);
+	sum = 0;
+	while (NULL != ll)
+	{
+		sum += ll->sz;
+		ll = ll->nxt;
+	}
+	return (sum);
 }
